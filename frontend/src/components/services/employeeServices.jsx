@@ -3,7 +3,9 @@ const API_URL = "http://localhost:1337";
 export const getEmployee = async () => {
     try {
         const response = await fetch(`${API_URL}/api/employees`);
-        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
         return response.json();
     }
     catch (error) {

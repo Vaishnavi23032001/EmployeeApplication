@@ -3,7 +3,7 @@ const express = require("express");
 const {
   createEmployee,
   getEmployees,
-  getEmployee,
+  getEmployeeById,
   updateEmployee,
   deleteEmployee
 } = require("../controllers/employeeControllers");
@@ -15,7 +15,7 @@ router.post("/", createEmployee);
 
 router.get("/", getEmployees);
 
-router.get("/:id", getEmployee);
+router.get("/:id", getEmployeeById);
 
 router.put("/:id", updateEmployee);
 

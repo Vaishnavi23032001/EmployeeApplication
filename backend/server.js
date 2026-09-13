@@ -4,7 +4,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 
-const { parseServer } = require("./config/parse");
+require("./config/parse");
 const employeeRoutes = require("./routes/employeeRoutes");
 
 const app = express();
@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 // Parse Server middleware
-app.use("/parse", parseServer.app);
+// app.use("/parse", parseServer.app);
 
 // API routes
 app.use("/api/employees", employeeRoutes);

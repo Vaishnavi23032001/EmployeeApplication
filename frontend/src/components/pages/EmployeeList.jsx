@@ -10,9 +10,17 @@ const EmployeeList = () => {
             const data = await getEmployee();
             setEmployees(data);
             console.log("Fetched employees:", data);
+            if (Array.isArray(data)) {
+                setEmployees(data);
+                console.log("Fetched employees:", data);
+            } else {
+                console.error("Data is not an array:", data);
+                setEmployees([]);
+            }
         }   
         catch (error) {
             console.error("Error fetching employees:", error);
+            setEmployees([]);
         }
     }
 
