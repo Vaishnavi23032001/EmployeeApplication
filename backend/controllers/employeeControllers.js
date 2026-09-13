@@ -1,4 +1,5 @@
-const Parse = require("../config/parse");
+const { Parse } = require("../config/parse");
+
 
 // CREATE
 const createEmployee = async (req, res) => {
@@ -78,9 +79,17 @@ const updateEmployee = async (req, res) => {
         const { id } = req.params;
 
         const query = new Parse.Query("Employee");
-        const employee = await query.get(id, {
+        const employees = await query.find({
             useMasterKey: true
         });
+        const employee = employees.find((item) => item.id === id);
+
+        if (!employee) {
+            return res.status(404).json({
+                message: "Employee not found",
+                error: "Object not found."
+            });
+        }
 
         const { name, email, department, salary } = req.body;
 
@@ -112,9 +121,17 @@ const deleteEmployee = async (req, res) => {
         const { id } = req.params;
 
         const query = new Parse.Query("Employee");
-        const employee = await query.get(id, {
+        const employees = await query.find({
             useMasterKey: true
         });
+        const employee = employees.find((item) => item.id === id);
+
+        if (!employee) {
+            return res.status(404).json({
+                message: "Employee not found",
+                error: "Object not found."
+            });
+        }
 
         await employee.destroy({
             useMasterKey: true
