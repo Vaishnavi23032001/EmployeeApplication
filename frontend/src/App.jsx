@@ -1,21 +1,42 @@
-import EmployeeForm from './components/pages/EmployeeForm';
-import EmployeeList from './components/pages/EmployeeList';
-import UpdateEmployee from './components/pages/UpdateEmployee';
-
+import React from 'react';
+import Employees from './components/pages/Employee';
+import {
+    BrowserRouter,
+    Routes,
+    Route
+} from "react-router-dom";
+import Login from "./components/pages/Login";
+import ProtectedRoute from "./components/pages/ProtectedRoute";
+import Signup from "./components/pages/signup";
 function App() {
 
     return (
-        <div>
+         <BrowserRouter>
 
-            <h1>Employee Manager</h1>
+            <Routes>
 
-            <EmployeeForm />
+                <Route
+                    path="/"
+                    element={<Login />}
+                />
 
-            <hr />
+                <Route
+                    path="/signup"
+                    element={<Signup />}
+                />
 
-            <EmployeeList />
+                <Route
+                    path="/employees"
+                    element={
+                        <ProtectedRoute>
+                            <Employees />
+                        </ProtectedRoute>
+                    }
+                />
 
-        </div>
+            </Routes>
+
+        </BrowserRouter>
     );
 }
 

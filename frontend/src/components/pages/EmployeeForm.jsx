@@ -29,40 +29,40 @@ const EmployeeForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label htmlFor="name">Name:</label>
+        <form onSubmit={handleSubmit} className="employee-form">
+            <label htmlFor="name">Name
             <input
                 type="text"
                 placeholder="Employee Name"
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-            />
-            <label htmlFor="email">Email:</label>
+                /></label>
+            <label htmlFor="email">Email
             <input
                 type="email"
                 placeholder="Email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-            />
-            <label htmlFor="department">Department:</label>
+                /></label>
+            <label htmlFor="department">Department
             <input
                 type="text"
                 placeholder="Department"
                 required
                 value={department}
                 onChange={(e) => setDepartment(e.target.value)}
-            />
-            <label htmlFor="salary">Salary:</label>
+                /></label>
+            <label htmlFor="salary">Salary
             <input
                 type="number"
                 placeholder="Salary"
                 required
                 value={salary}
                 onChange={(e) => setSalary(e.target.value)}
-            />
-            <button type="submit">Create Employee</button>
+                /></label>
+            <button type="submit">Create employee</button>
         </form>
     );
 }

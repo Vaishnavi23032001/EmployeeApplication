@@ -68,12 +68,18 @@ const EmployeeList = () => {
     }, []);
 
 return (
-    <div>
-        <h1>Employee List</h1>
+    <div className="employee-list">
+        <div className="list-heading">
+            <div>
+                <h1>Employee list</h1>
+                <p>{employees.length} {employees.length === 1 ? "team member" : "team members"}</p>
+            </div>
+        </div>
         {employees.length === 0 ? (
-            <p>No employees found.</p>
+            <p className="empty-list">No employees found.</p>
         ) : (
-            <table>
+            <div className="table-wrap">
+            <table className="employee-table">
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -91,37 +97,40 @@ return (
                         <td>{employee.department}</td>
                         <td>{employee.salary}</td>
                         <td>
-                            <button onClick={() => handleUpdate(employee)}>Update</button>
-                            <button onClick={() => handleDelete(employee.objectId)}>Delete</button>
+                            <button className="table-action update-action" onClick={() => handleUpdate(employee)}>Update</button>
+                            <button className="table-action delete-action" onClick={() => handleDelete(employee.objectId)}>Delete</button>
                         </td>
                     </tr>
                 ))}
                 </tbody>
             </table>
+            </div>
         )}
         {selectedEmployee && (
-            <div role="dialog" aria-modal="true">
-                <div>
-                    <h2>Update Employee</h2>
-                    <form onSubmit={handleFormSubmit}>
-                        <label>
+            <div className="modal-backdrop" role="dialog" aria-modal="true">
+                <div className="modal-card">
+                    <h2>Update employee</h2>
+                    <form className="dialog-form" onSubmit={handleFormSubmit}>
+                        <label htmlFor="update-name">
                             Name
-                            <input name="name" value={selectedEmployee.name || ""} onChange={handleFormChange} required />
+                            <input id="update-name" name="name" value={selectedEmployee.name || ""} onChange={handleFormChange} required />
                         </label>
-                        <label>
+                        <label htmlFor="update-email">
                             Email
-                            <input type="email" name="email" value={selectedEmployee.email || ""} onChange={handleFormChange} required />
+                            <input id="update-email" type="email" name="email" value={selectedEmployee.email || ""} onChange={handleFormChange} required />
                         </label>
-                        <label>
+                        <label htmlFor="update-department">
                             Department
-                            <input name="department" value={selectedEmployee.department || ""} onChange={handleFormChange} required />
+                            <input id="update-department" name="department" value={selectedEmployee.department || ""} onChange={handleFormChange} required />
                         </label>
-                        <label>
+                        <label htmlFor="update-salary">
                             Salary
-                            <input type="number" name="salary" value={selectedEmployee.salary || ""} onChange={handleFormChange} required />
+                            <input id="update-salary" type="number" name="salary" value={selectedEmployee.salary || ""} onChange={handleFormChange} required />
                         </label>
-                        <button type="submit">Save</button>
-                        <button type="button" onClick={() => setSelectedEmployee(null)}>Cancel</button>
+                        <div className="dialog-actions">
+                            <button className="primary-action" type="submit">Save changes</button>
+                            <button className="secondary-action" type="button" onClick={() => setSelectedEmployee(null)}>Cancel</button>
+                        </div>
                     </form>
                 </div>
             </div>
