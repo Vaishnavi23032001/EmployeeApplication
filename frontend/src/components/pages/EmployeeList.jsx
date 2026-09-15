@@ -36,10 +36,12 @@ const EmployeeList = () => {
     const handleFormSubmit = async (event) => {
         event.preventDefault();
         try {
-            const updatedEmployee = await updateEmployee(selectedEmployee.id, selectedEmployee);
+            const employeeId = selectedEmployee.objectId;
+            const updatedResponse = await updateEmployee(employeeId, selectedEmployee);
+            const updatedEmployee = updatedResponse.employee || updatedResponse;
             setEmployees((currentEmployees) =>
                 currentEmployees.map((employee) =>
-                    employee.id === selectedEmployee.id
+                    employee.objectId === employeeId
                         ? (updatedEmployee || selectedEmployee)
                         : employee
                 )
@@ -54,7 +56,7 @@ const EmployeeList = () => {
         try {
             await deleteEmployee(employeeId);
             setEmployees((currentEmployees) =>
-                currentEmployees.filter((employee) => employee.id !== employeeId)
+                currentEmployees.filter((employee) => employee.objectId !== employeeId)
             );
         } catch (error) {
             console.error("Error deleting employee:", error);
@@ -83,14 +85,14 @@ return (
                 </thead>
                 <tbody>
                 {employees.map((employee) => (
-                    <tr key={employee.id}>
+                    <tr key={employee.objectId}>
                         <td>{employee.name}</td>
                         <td>{employee.email}</td>
                         <td>{employee.department}</td>
                         <td>{employee.salary}</td>
                         <td>
                             <button onClick={() => handleUpdate(employee)}>Update</button>
-                            <button onClick={() => handleDelete(employee.id)}>Delete</button>
+                            <button onClick={() => handleDelete(employee.objectId)}>Delete</button>
                         </td>
                     </tr>
                 ))}
