@@ -1,18 +1,36 @@
 const API_URL = "http://localhost:1337";
 
+
+// router.get(
+//     "/",
+//     requireAuth,
+//     getEmployees
+// );
 export const getEmployee = async () => {
     try {
-        const response = await fetch(`${API_URL}/api/employees`);
+        const token = localStorage.getItem("sessionToken");
+
+        const response = await fetch(`${API_URL}/api/employees`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "x-parse-session-token": token
+            }
+        });
+
+        const data = await response.json();
+
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            throw new Error(data.message || `HTTP error! status: ${response.status}`);
         }
-        return response.json();
-    }
-    catch (error) {
+
+        return data;
+
+    } catch (error) {
         console.error("Error fetching employee data:", error);
         throw error;
     }
-}
+};
 
 export const createEmployee = async (employeeData) => {
     try {

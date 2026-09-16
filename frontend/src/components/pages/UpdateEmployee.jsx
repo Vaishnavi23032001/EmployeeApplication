@@ -23,8 +23,8 @@ const UpdateEmployee = () => {
 
 	return (
 		<div className="update-employee">
-			<h2>Update Employee</h2>
-			<form onSubmit={handleSubmit}>
+			<h2>Update employee</h2>
+			<form className="standalone-update-form" onSubmit={handleSubmit}>
 				<label htmlFor="name">Name</label>
 				<input
 					id="name"

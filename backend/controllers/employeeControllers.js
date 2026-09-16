@@ -14,6 +14,11 @@ const createEmployee = async (req, res) => {
         employee.set("department", department);
         employee.set("salary", Number(salary));
 
+        const acl = new Parse.ACL();
+        acl.setReadAccess(req.user,true);
+        acl.setWriteAccess(req.user,true);
+        employee.setACL(acl);
+
         const savedEmployee = await employee.save(null, {
             useMasterKey: true
         });
