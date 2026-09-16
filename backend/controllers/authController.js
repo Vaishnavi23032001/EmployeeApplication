@@ -131,10 +131,27 @@ const logout = async (req, res) => {
             });
         }
 
-        const user =
-            await Parse.User.become(sessionToken);
+        const response = await fetch(
+            `${process.env.PARSE_SERVER_URL}/logout`,
+            {
+                method: "POST",
+                headers: {
+                    "X-Parse-Application-Id":
+                        process.env.PARSE_APP_ID,
 
-        await user.logOut();
+                    "X-Parse-Session-Token":
+                        sessionToken
+                }
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            return res.status(response.status).json({
+                message: data.error || "Logout failed"
+            });
+        }
 
         return res.status(200).json({
             message: "Logout successful"
@@ -143,12 +160,11 @@ const logout = async (req, res) => {
     } catch (error) {
         console.error("Logout error:", error);
 
-        return res.status(400).json({
+        return res.status(500).json({
             message: error.message
         });
     }
 };
-
 
 module.exports = {
     signup,

@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { loginuser } from "../services/authService";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         username: "",
@@ -42,6 +44,9 @@ const Login = () => {
             );
 
             setMessage("Login successful");
+
+            navigate("/employees");
+
 
             console.log(data);
 

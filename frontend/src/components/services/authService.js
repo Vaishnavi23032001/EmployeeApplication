@@ -64,3 +64,4 @@ export const getCurrentUser = async (token) => {
 
     return data;
 };
+

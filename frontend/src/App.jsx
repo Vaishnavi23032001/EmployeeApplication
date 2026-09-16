@@ -1,4 +1,5 @@
-import React from 'react';
+// import React from 'react';
+import './index.css'
 import Employees from './components/pages/Employee';
 import {
     BrowserRouter,
