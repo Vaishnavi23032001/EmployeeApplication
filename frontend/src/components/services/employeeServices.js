@@ -34,20 +34,34 @@ export const getEmployee = async () => {
 
 export const createEmployee = async (employeeData) => {
     try {
-        const response = await fetch(`${API_URL}/api/employees`, {  
+        const token = localStorage.getItem("sessionToken");
+
+        const response = await fetch(`${API_URL}/api/employees`, {
             method: "POST",
+
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "x-parse-session-token": token
             },
+
             body: JSON.stringify(employeeData)
         });
-        return response.json();
-    }
-    catch (error) {
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(
+                data.message || "Failed to create employee"
+            );
+        }
+
+        return data;
+
+    } catch (error) {
         console.error("Error creating employee:", error);
         throw error;
     }
-}
+};
 
 export const updateEmployee = async (employeeId, updatedData) => {
     try {

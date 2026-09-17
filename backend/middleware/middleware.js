@@ -3,8 +3,6 @@ const requireAuth = async (req, res, next) => {
         const sessionToken =
             req.headers["x-parse-session-token"];
 
-        // console.log("Session Token:", sessionToken);
-
         if (!sessionToken) {
             return res.status(401).json({
                 message: "Login required"
@@ -27,15 +25,13 @@ const requireAuth = async (req, res, next) => {
 
         const data = await response.json();
 
-        // console.log("Parse /users/me:", response.status, data);
-
         if (!response.ok) {
             return res.status(401).json({
                 message: "Invalid session"
             });
         }
 
-        req.user = data;
+        req.user = data;  // ⭐ important
 
         next();
 

@@ -15,8 +15,8 @@ const createEmployee = async (req, res) => {
         employee.set("salary", Number(salary));
 
         const acl = new Parse.ACL();
-        acl.setReadAccess(req.user,true);
-        acl.setWriteAccess(req.user,true);
+        acl.setReadAccess(req.user.objectId,true);
+        acl.setWriteAccess(req.user.objectId,true);
         employee.setACL(acl);
 
         const savedEmployee = await employee.save(null, {

@@ -29,6 +29,7 @@ const Signup = () => {
                 email: "",
                 password: "",
             });
+            window.location.href = "/";
         } catch (error) {
             setMessage(error.message);
         }

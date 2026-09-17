@@ -13,18 +13,17 @@ const { requireAuth } = require("../middleware/middleware");
 const router = express.Router();
 
 
-router.post("/", createEmployee);
 
-router.get(
-    "/",
-    requireAuth,
-    getEmployees
-);
-router.get("/:id", getEmployeeById);
 
-router.put("/:id", updateEmployee);
+router.post("/", requireAuth, createEmployee);
 
-router.delete("/:id", deleteEmployee);
+router.get("/", requireAuth, getEmployees);
+
+router.get("/:id", requireAuth, getEmployeeById);
+
+router.put("/:id", requireAuth, updateEmployee);
+
+router.delete("/:id", requireAuth, deleteEmployee);
 
 
 module.exports = router;

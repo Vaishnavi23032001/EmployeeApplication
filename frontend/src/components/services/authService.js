@@ -65,3 +65,25 @@ export const getCurrentUser = async (token) => {
     return data;
 };
 
+
+export const logoutUser = async (sessionToken) => {
+    const response = await fetch(
+        `${API_URL}/logout`,
+        {
+            method: "POST",
+            headers: {
+                "x-parse-session-token": sessionToken
+            }
+        }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        throw new Error(
+            data.message || "Logout failed"
+        );
+    }
+
+    return data;
+};
