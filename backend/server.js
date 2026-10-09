@@ -6,6 +6,7 @@ const cors = require("cors");
 
 const { parseServer } = require("./config/parse");
 const employeeRoutes = require("./routes/employeeRoutes");
+const authRoutes = require("./routes/authRoutes");
 
 const app = express();
 
@@ -17,6 +18,8 @@ app.use("/parse", parseServer.app);
 
 // API routes
 app.use("/api/employees", employeeRoutes);
+
+app.use("/api/auth", authRoutes);
 
 // Health check endpoint
 app.get("/", (req, res) => {

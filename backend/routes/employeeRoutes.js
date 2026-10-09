@@ -8,18 +8,22 @@ const {
   deleteEmployee
 } = require("../controllers/employeeControllers");
 
+const { requireAuth } = require("../middleware/middleware");
+
 const router = express.Router();
 
 
-router.post("/", createEmployee);
 
-router.get("/", getEmployees);
 
-router.get("/:id", getEmployeeById);
+router.post("/", requireAuth, createEmployee);
 
-router.put("/:id", updateEmployee);
+router.get("/", requireAuth, getEmployees);
 
-router.delete("/:id", deleteEmployee);
+router.get("/:id", requireAuth, getEmployeeById);
+
+router.put("/:id", requireAuth, updateEmployee);
+
+router.delete("/:id", requireAuth, deleteEmployee);
 
 
 module.exports = router;
